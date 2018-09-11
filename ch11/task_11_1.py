@@ -47,7 +47,8 @@ def parse_cdp_neighbors(output_from_file_as_a_string) :
       local_device_name, *rest = line.split('>')
 
     if next_line_is_data :
-      result_data_list = [item.strip() for item in line.split('   ') if item]
+      line = line.replace('Eth ', 'Eth')
+      result_data_list = [item.strip() for item in line.split() if item]
       neighbor_device_name, local_intf, *rest, neighbor_intf = result_data_list
 
       return_result_dict[tuple( [local_device_name, local_intf] )] = tuple( [neighbor_device_name, neighbor_intf] )
